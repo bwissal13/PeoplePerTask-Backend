@@ -1,22 +1,22 @@
 CREATE DATABASE peoplePerTask;
-CREATE TABLE Users(
+CREATE TABLE IF NOT EXISTS Users(
 UserId int PRIMARY KEY,
 UserName VARCHAR(255),
 ProfilPassword VARCHAR(255), 
 email VARCHAR(255),
 Other VARCHAR(255)
 );
-CREATE TABLE categories(
+CREATE TABLE IF NOT EXISTS categories(
     categorieId int PRIMARY KEY,
     CategorieName VARCHAR(255)
 );
-CREATE TABLE sousCategories(
+CREATE TABLE  IF NOT EXISTS sousCategories(
     sousCategorieId int PRIMARY KEY,
     sousCategorieName VARCHAR(255),
     categorieId int,
     foreign key (categorieId) references categories(categorieId)
 );
-CREATE TABLE projets(
+CREATE TABLE IF NOT EXISTS projets(
     ProjetId int PRIMARY KEY,
     projetTitle VARCHAR(255),
     projetDescription VARCHAR(255),
@@ -27,20 +27,20 @@ CREATE TABLE projets(
     UserId int,
     foreign key (UserId) references Users(UserId)
 );
-CREATE TABLE freelances(
+CREATE TABLE IF NOT EXISTS freelances(
  freelanceID int PRIMARY KEY,
  freelanceName VARCHAR(255),
- competences VARCHAR(255),
+ competences VARCHAR(255) ,
  UserId int,
  foreign key (UserId) references Users(UserId)
 );
-CREATE TABLE offres(
+CREATE TABLE IF NOT EXISTS offres(
     offreId int PRIMARY KEY,    
     Amount INT,
     Deadline INT  
 );
 
-CREATE TABLE Testimonials (
+CREATE TABLE IF NOT EXISTS Testimonials (
     Testimonial_ID INT PRIMARY KEY,
     Comment TEXT  
 );
@@ -65,13 +65,4 @@ ADD COLUMN edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMES
 add column created_by VARCHAR(255) DEFAULT 'bwissal',
 add column deleted_by varchar(255) DEFAULT 'bwissal',
 add column edited_by varchar(255) DEFAULT 'Aymane';
-ALTER table freelances
-DROP COLUMN competences;
-UPDATE freelances
-SET competences = 'ar'
-WHERE freelanceName =  'Web Developer Freelance' AND freelanceId = 1; 
-
-ALTER TABLE freelances
-RENAME COLUMN competences to languages;
-
 
