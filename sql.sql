@@ -30,7 +30,7 @@ CREATE TABLE projets(
 CREATE TABLE freelances(
  freelanceID int PRIMARY KEY,
  freelanceName VARCHAR(255),
- competences VARCHAR(255) check (competences='fr' or competences='ar' ),
+ competences VARCHAR(255),
  UserId int,
  foreign key (UserId) references Users(UserId)
 );
@@ -51,3 +51,27 @@ INSERT INTO souscategories VALUES (1,'Web Development',1),(2,'Logo Design',2),(3
 INSERT INTO users VALUES (1,'khalid ','hashed_password_1','khalid.waheli@email.com','weird'),(2,'Abdeljlil','hashed_password_2','abdo.sno7i@email.com','weird'),(3,'hamza','hashed_password_3','hamza.elazzhar@email.com','weird'),(4,'zakaria','hashed_password_4','zakaria.elkoh@email.com','weird'),(5,'fati','hashed_password_5','fatima.ezzahra@email.com','cute');
 INSERT INTO testimonials VALUES (1,'Great freelancer! Delivered the project ahead of schedule.'),(2,'Excellent work, very professional and reliable.'),(3,'Impressed with the quality of service. Will hire again.'),(4,'Quick and efficient. Highly recommended.'),(5,'Good communication and attention to detail.');
 INSERT INTO offres VALUES (1,500,7),(2,300,5),(3,800,10),(4,400,6),(5,600,8);
+ALTER TABLE users
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN deleted_at TIMESTAMP DEFAULT NULL,
+ADD COLUMN edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+add column created_by VARCHAR(255) DEFAULT 'bwissal',
+add column deleted_by varchar(255) DEFAULT 'bwissal',
+add column edited_by varchar(255) DEFAULT 'Aymane';
+ALTER TABLE projets
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ADD COLUMN deleted_at TIMESTAMP DEFAULT NULL,
+ADD COLUMN edited_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+add column created_by VARCHAR(255) DEFAULT 'bwissal',
+add column deleted_by varchar(255) DEFAULT 'bwissal',
+add column edited_by varchar(255) DEFAULT 'Aymane';
+ALTER table freelances
+DROP COLUMN competences;
+UPDATE freelances
+SET competences = 'ar'
+WHERE freelanceName =  'Web Developer Freelance' AND freelanceId = 1; 
+
+ALTER TABLE freelances
+RENAME COLUMN competences to languages;
+
+
